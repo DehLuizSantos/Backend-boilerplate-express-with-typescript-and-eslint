@@ -2,11 +2,14 @@ import { CategoriesRepository } from "../../repositories/implementations/Categor
 import { ListCategoriesControler } from "./listCategoriesController";
 import { ListCategoriesUseCase } from "./listCategoriesUseCase";
 
-const categoriesRepository = CategoriesRepository.getInstance();
-const listCategoriesUseCase = new ListCategoriesUseCase(categoriesRepository);
+export default (): ListCategoriesControler => {
+  const categoriesRepository = new CategoriesRepository();
 
-const listCategoriesControler = new ListCategoriesControler(
-  listCategoriesUseCase
-);
+  const listCategoriesUseCase = new ListCategoriesUseCase(categoriesRepository);
 
-export { listCategoriesControler };
+  const listCategoriesController = new ListCategoriesControler(
+    listCategoriesUseCase
+  );
+
+  return listCategoriesController;
+};
